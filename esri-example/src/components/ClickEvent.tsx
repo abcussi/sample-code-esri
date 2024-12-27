@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useEffect } from 'react';
 import { loadModules } from 'esri-loader';
 
@@ -5,7 +6,7 @@ const MapWithHitTest: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let view: __esri.MapView | null = null;
+    let view: __esri.MapView;
 
     loadModules(
       [
@@ -38,15 +39,14 @@ const MapWithHitTest: React.FC = () => {
           center: [-99.13, 19.43],
           zoom: 5
         });
-
-        view.on('click', (event: __esri.MapViewClickEvent) => {
-          view?.hitTest(event).then((response) => {
-            const results = response.results;
-
+        view.on('click', (event: __esri.ViewClickEvent) => {
+          view?.hitTest(event).then((hitResult: __esri.HitTestResult) => {
+            const results = hitResult.results;
+        
             if (results.length > 0) {
-              results.forEach((result: __esri.HitTestResult) => {
-                if (result.graphic) {
-                  const { layer, attributes } = result.graphic as __esri.Graphic;
+              results.forEach((graphicHit: any) => {
+                if (graphicHit.graphic) {
+                  const { layer, attributes } = graphicHit.graphic;
                   console.log('Capa:', (layer as __esri.FeatureLayer).title);
                   console.log('Atributos:', attributes);
                 }
@@ -56,6 +56,7 @@ const MapWithHitTest: React.FC = () => {
             }
           });
         });
+        
       })
       .catch((err) => {
         console.error('Error al cargar módulos de ArcGIS:', err);

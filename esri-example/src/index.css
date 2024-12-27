@@ -1,0 +1,19 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Altura completa del viewport */
+  width: 100%;  /* Ancho completo del viewport */
+  overflow: hidden; /* Evita el desbordamiento */
+}
+
+.mapDiv {
+  height: 100%; /* Altura completa */
+  width: 100%;  /* Ancho completo */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita cualquier desbordamiento */
+}
+
+.esri-ui {
+  z-index: 9999 !important;
+}

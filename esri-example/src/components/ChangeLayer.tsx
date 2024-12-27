@@ -18,6 +18,7 @@ const MapWithToggle: React.FC = () => {
     ], { 
       url: 'https://js.arcgis.com/4.27/' 
     })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then(([ArcGISMap, MapView, FeatureLayer]: any) => {
         const map = new ArcGISMap({
           basemap: 'streets-navigation-vector'
